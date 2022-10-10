@@ -3,8 +3,14 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.20.0"
+      version = "2.40.0"
     }
+  }
+   backend "azurerm" {
+    resource_group_name  = "rg-terraformstate"
+    storage_account_name = "terrastatestorage2188"
+    container_name       = "terraformdemo"
+    key                  = "challenge.terraform.tfstate"
   }
 }
 
@@ -15,7 +21,7 @@ provider "azurerm" {
 
 #create resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-terraexample-challenege"
+  name     = "rg-terraexample"
   location = "westus2"
   tags = {
     Environment = "terraexample"
@@ -41,14 +47,14 @@ resource "azurerm_subnet" "subnet" {
 
 # Create network interface
 resource "azurerm_network_interface" "nic" {
-  name                      = "nic-01-vmterraform-dev-001"
+  name                      = "nic-01-vmterraform-dev-001 "
   location                  = azurerm_resource_group.rg.location
   resource_group_name       = azurerm_resource_group.rg.name
 
   ip_configuration {
     name                          = "niccfg-vmterraform"
     subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "dynamic"
   }
 }
 
