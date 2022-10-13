@@ -1,4 +1,4 @@
-application = "varchaltf"
+name = "varchaltf"
 location = "eastus"
 vm_size = "Standard_B1s"
 admin_username = "terraadmin"

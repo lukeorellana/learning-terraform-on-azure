@@ -15,7 +15,7 @@ provider "azurerm" {
 
 #create resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-terraexample-remote-state-storage"
+  name     = "rg-tfvarchallenge-remote-state-storage"
   location = "westus2"
 }
 

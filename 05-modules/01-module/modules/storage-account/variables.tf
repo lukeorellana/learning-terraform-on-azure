@@ -1,8 +1,8 @@
-variable "saname" {
+variable "storage_account_name" {
     type = string
     description = "Name of storage account"
 }
-variable "rgname" {
+variable "resource_group_name" {
     type = string
     description = "Name of resource group"
 }

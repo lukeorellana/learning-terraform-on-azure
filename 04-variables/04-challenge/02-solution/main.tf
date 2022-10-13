@@ -1,33 +1,12 @@
-# Terraform
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.40.0"
-    }
-  }
-   backend "azurerm" {
-    resource_group_name  = "rg-terraformstate"
-    storage_account_name = "terrastatestorage2188"
-    container_name       = "terraformdemo"
-    key                  = "varchallenge.terraform.tfstate"
-  }
-}
-
-#Azure provider
-provider "azurerm" {
-  features {}
-}
-
 #create resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-${var.application}"
+  name     = "rg-${var.name}"
   location = var.location
 }
 
 #Create virtual network
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-${var.application}-${azurerm_resource_group.rg.location}-001"
+  name                = "vnet-${var.name}-${azurerm_resource_group.rg.location}-001"
   address_space       = var.vnet_address_space
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -35,7 +14,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 # Create subnet
 resource "azurerm_subnet" "subnet" {
-  name                 = "snet-${var.application}-${azurerm_resource_group.rg.location}-001"
+  name                 = "snet-${var.name}-${azurerm_resource_group.rg.location}-001"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.snet_address_space
@@ -44,23 +23,24 @@ resource "azurerm_subnet" "subnet" {
 
 # Create network interface
 resource "azurerm_network_interface" "nic" {
-  name                      = "nic-${var.application}vm1-001 "
+  name                      = "nic-${var.name}vm1-001"
   location                  = azurerm_resource_group.rg.location
   resource_group_name       = azurerm_resource_group.rg.name
 
   ip_configuration {
-    name                          = "niccfg-${var.application}vm1"
+    name                          = "niccfg-${var.name}vm1"
     subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "dynamic"
+    private_ip_address_allocation = "Dynamic"
   }
 }
 
 # Create virtual machine
 resource "azurerm_windows_virtual_machine" "vm" {
-  name                  = "${var.application}vm1"
+  name                  = "${var.name}vm1"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic.id]
+
   size                  = var.vm_size
   admin_username        = var.admin_username
   admin_password        = var.admin_password
