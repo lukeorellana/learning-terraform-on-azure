@@ -18,14 +18,6 @@ variable "storage_type"{
 
 
 
-
-
-
-
-
-
-
-
 resource "azurerm_storage_account" "example" {
   name                = "storageaccountname"
   resource_group_name = azurerm_resource_group.example.name

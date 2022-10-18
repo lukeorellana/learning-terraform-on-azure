@@ -1,30 +1,7 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.40.0"
-    }
-  }
-}
-
-#Azure provider
-provider "azurerm" {
-  features {}
-}
-
-
 data "azurerm_virtual_network" "example" {
   name                = "vnet-lukelab-nc-prod-01"
   resource_group_name = "rg-tfforexpressions"
 }
-
-
-
-
-
-
-
-
 
 # output "subnets" {
 #   value = [for s in data.azurerm_virtual_network.example.subnets : lower(s)]

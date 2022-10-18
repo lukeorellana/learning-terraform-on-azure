@@ -1,18 +1,3 @@
-# Terraform
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.40.0"
-    }
-  }
-}
-
-#Azure provider
-provider "azurerm" {
-  features {}
-}
-
 variable "inbound_rules" {
   type = map
   description = "A map of allowed inbound ports and their priority value"

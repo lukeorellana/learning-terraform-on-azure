@@ -1,12 +1,6 @@
-#Azure provider
-provider "azurerm" {
-  version = "=2.40.0"
-  features {}
-}
-
 #create resource group
 resource "azurerm_resource_group" "rg" {
-    name     = "rg-MyFirstTerraform"
+    name     = "rg-${var.name}"
     location = "westus"
 }
 
@@ -14,7 +8,7 @@ resource "azurerm_resource_group" "rg" {
 module "storage_account" {
   source    = "git::https://allanore@dev.azure.com/allanore/TerraformModulesExample/_git/TerraformModulesExample?ref=v0.1"
 
-  saname    = "tfdemosa23432"
+  saname    = "tfdemo${var.name}sta"
   rgname    = azurerm_resource_group.rg.name
   location  = azurerm_resource_group.rg.location
 }
@@ -23,7 +17,7 @@ module "storage_account" {
 module "storage_account" {
   source    = "github.com/allanore/TerraformModulesExample"
 
-  saname    = "tfdemosa23432"
+  saname    = "tfdemo${var.name}2sta"
   rgname    = azurerm_resource_group.rg.name
   location  = azurerm_resource_group.rg.location
 }
@@ -33,7 +27,7 @@ module "function-app" {
   source  = "InnovationNorway/function-app/azurerm"
   version = "0.1.2"
 
-  function_app_name = "func-terrademo"
+  function_app_name = "func-${var.name}"
   resource_group_name = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 }

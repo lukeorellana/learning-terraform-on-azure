@@ -1,18 +1,3 @@
-# Terraform
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.40.0"
-    }
-  }
-}
-
-#Azure provider
-provider "azurerm" {
-  features {}
-}
-
 # Location Variable
 variable "location" {
     type = string
