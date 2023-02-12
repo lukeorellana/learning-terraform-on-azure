@@ -3,21 +3,21 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.20.0"
+      version = "3.43.0"
     }
   }
 }
 
 # Create NIC
 resource "azurerm_network_interface" "nic" {
-  name                      = "nic-${var.servername}-001 "
+  name                      = "nic-${var.servername}-001"
   location                  = var.location
   resource_group_name       = var.resource_group_name
 
   ip_configuration {
     name                          = "niccfg-${var.servername}"
     subnet_id                     = var.subnet_id
-    private_ip_address_allocation = "dynamic"
+    private_ip_address_allocation = "Dynamic"
   }
 }
 
@@ -27,7 +27,11 @@ resource "azurerm_windows_virtual_machine" "vm" {
   name                  = var.servername
   location              = var.location
   resource_group_name   = var.resource_group_name
-  network_interface_ids = [azurerm_network_interface.nic.id]
+  network_interface_ids = [
+    azurerm_network_interface.nic.id,
+    ]
+    
+
   size                  = var.vm_size
   admin_username        = var.admin_username
   admin_password        = var.admin_password

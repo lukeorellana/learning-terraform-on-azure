@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 #Git Azure DevOps
-module "storage_account" {
+module "storage_account1" {
   source    = "git::https://allanore@dev.azure.com/allanore/TerraformModulesExample/_git/TerraformModulesExample?ref=v0.1"
 
   saname    = "tfdemo${var.name}sta"
@@ -14,7 +14,7 @@ module "storage_account" {
 }
 
 #GitHub
-module "storage_account" {
+module "storage_account2" {
   source    = "github.com/allanore/TerraformModulesExample"
 
   saname    = "tfdemo${var.name}2sta"
@@ -23,11 +23,11 @@ module "storage_account" {
 }
 
 #Terraform registry
-module "function-app" {
-  source  = "InnovationNorway/function-app/azurerm"
-  version = "0.1.2"
-
-  function_app_name = "func-${var.name}"
+module "vnet" {
+  source  = "Azure/vnet/azurerm"
+  version = "4.0.0"
+  # insert the 3 required variables here
   resource_group_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
+  use_for_each        = true
+  vnet_location       = azurerm_resource_group.rg.location
 }
