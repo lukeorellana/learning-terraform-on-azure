@@ -22,7 +22,7 @@ func Test06AdvancedHCL04CountSATerraform(t *testing.T) {
 
 		// Variables to pass to our Terraform code using -var options
 		Vars: map[string]interface{}{
-			"name": rndName,
+			"storage_account_name": rndName,
 		},
 	}
 
