@@ -12,3 +12,5 @@ Init, Apply, Plan and Destroy - Create Configuration for Deploying Resource Grou
     - Apply and auto-approve
 - Terraform destroy
     - Destroy and destroy plan
+## Challenge
+Build a Virtual Machine in Azure using the Terraform documentation.
